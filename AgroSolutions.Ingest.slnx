@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="AgroSolutions.Ingest.API/AgroSolutions.Ingest.API.csproj" />
+  <Project Path="AgroSolutions.Ingest.Application/AgroSolutions.Ingest.Application.csproj" />
+  <Project Path="AgroSolutions.Ingest.Domain/AgroSolutions.Ingest.Domain.csproj" />
+  <Project Path="AgroSolutions.Ingest.Infrastructure/AgroSolutions.Ingest.Infrastructure.csproj" />
+</Solution>
