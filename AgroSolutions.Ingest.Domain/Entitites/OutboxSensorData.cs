@@ -1,20 +1,26 @@
-﻿namespace AgroSolutions.Ingest.Domain.Entitites;
+﻿using AgroSolutions.Ingest.Domain.Enums;
 
-public class OutboxSensorData(string payload)
+namespace AgroSolutions.Ingest.Domain.Entitites;
+
+public class OutboxSensorData
 {
     public Guid OutboxSensorDataId { get; private set; }
-    public string Payload { get; private set; } = payload;
-    public string Status { get; private set; } = "Pending";
     public Guid Correlationid { get; private set; }
+    public string Payload { get; private set; }
+    public OutboxSensorDataStatus Status { get; private set; } = OutboxSensorDataStatus.Pending;
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
-    public void MarkAsProcessed()
+    public OutboxSensorData()
     {
-        Status = "Processed";
     }
 
-    public void MarkAsFailed()
+    public OutboxSensorData(Guid correlationId, string payload)
     {
-        Status = "Failed";
+        Correlationid = correlationId;
+        Payload = payload;
     }
+
+    public void MarkAsProcessed() => Status = OutboxSensorDataStatus.Processed;
+
+    public void MarkAsFailed() => Status = OutboxSensorDataStatus.Failed;
 }

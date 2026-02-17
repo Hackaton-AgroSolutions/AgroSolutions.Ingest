@@ -17,7 +17,6 @@ public class SaveSensorDataCommandHandler(IUnitOfWork unitOfWork) : IRequestHand
 
         ReceivedSensorDataEvent receivedSensorDataEvent = new(
             request.SensorClientId,
-            request.CorrelationId,
             request.PrecipitationMm,
             request.WindSpeedKmh,
             request.SoilPH,
@@ -26,10 +25,10 @@ public class SaveSensorDataCommandHandler(IUnitOfWork unitOfWork) : IRequestHand
             request.SoilMoisturePercent,
             request.DataQualityScore);
 
-        OutboxSensorData outboxSensorData = new(JsonSerializer.Serialize(receivedSensorDataEvent));
+        OutboxSensorData outboxSensorData = new(request.CorrelationId, JsonSerializer.Serialize(receivedSensorDataEvent));
 
         Log.Information("Saving sensor data to the database for future processing. Received {@Data}.", receivedSensorDataEvent);
-        await _unitOfWork.OutboxReceivedSensorDatas.SaveReceivedSensorDataAsync(outboxSensorData, cancellationToken);
+        await _unitOfWork.OutboxSensorDatas.SaveSensorDataAsync(outboxSensorData, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         Log.Information("Finished the save of data from sensor.");

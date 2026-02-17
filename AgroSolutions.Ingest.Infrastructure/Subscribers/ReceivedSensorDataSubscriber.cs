@@ -46,21 +46,21 @@ public class ReceivedSensorDataSubscriber(IServiceProvider serviceProvider, IOpt
                         return;
                     }
 
-                    using IServiceScope messageScope = _serviceProvider.CreateScope();
-                    IInfluxDbService influxDb = messageScope.ServiceProvider.GetRequiredService<IInfluxDbService>();
+                    using IServiceScope scope = _serviceProvider.CreateScope();
+                    IInfluxDbService influxDb = scope.ServiceProvider.GetRequiredService<IInfluxDbService>();
 
-                    PointData point = PointData
+                    influxDb.Write(w => w.WritePoint(PointData
                         .Measurement("agro_sensors")
                         .Tag("sensor_client_id", receivedSensorDataEvent.SensorClientId.ToString())
+                        .Field("timestamp", receivedSensorDataEvent.Timestamp)
+                        .Field("soil_moisture_percent", receivedSensorDataEvent.SoilMoisturePercent)
                         .Field("air_temperature_c", receivedSensorDataEvent.AirTemperatureC)
-                        .Field("air_humidity_percent", receivedSensorDataEvent.AirHumidityPercent)
                         .Field("precipitation_mm", receivedSensorDataEvent.PrecipitationMm)
+                        .Field("air_humidity_percent", receivedSensorDataEvent.AirHumidityPercent)
+                        .Field("soil_ph", receivedSensorDataEvent.SoilPH)
                         .Field("wind_speed_kmh", receivedSensorDataEvent.WindSpeedKmh)
                         .Field("data_quality_score", receivedSensorDataEvent.DataQualityScore)
-                        .Field("soil_moisture_percent", receivedSensorDataEvent.SoilMoisturePercent)
-                        .Field("soil_ph", receivedSensorDataEvent.SoilPH)
-                        .Timestamp(receivedSensorDataEvent.Timestamp, WritePrecision.Ns);
-                    influxDb.Write(w => w.WritePoint(point));
+                        .Timestamp(receivedSensorDataEvent.Timestamp, WritePrecision.Ns)));
 
                     await channel.BasicAckAsync(ea.DeliveryTag, false);
                 }

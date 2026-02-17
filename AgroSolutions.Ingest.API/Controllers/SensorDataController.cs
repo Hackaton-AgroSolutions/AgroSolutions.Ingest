@@ -26,7 +26,8 @@ public class SensorDataController(IMediator mediator) : ControllerBase
         Log.Information("Starting Action {ActionName}.", nameof(Save));
         SaveSensorDataCommand command = new(
             User.SensorClientId,
-            Response.CorrelationId()!,
+            inputModel.Timestamp,
+            Response.CorrelationId(),
             inputModel.PrecipitationMm,
             inputModel.WindSpeedKmh,
             inputModel.SoilPH,

@@ -9,7 +9,7 @@ public class UnitOfWork(AgroSolutionsIngestDbContext dbContext,
     private readonly AgroSolutionsIngestDbContext _dbContext = dbContext;
 
     public ISensorClientRepository SensorClients => sensorClients;
-    public IOutboxSensorDataRepository OutboxReceivedSensorDatas => outboxSensorDatas;
+    public IOutboxSensorDataRepository OutboxSensorDatas => outboxSensorDatas;
 
     public Task SaveChangesAsync(CancellationToken cancellationToken) => _dbContext.SaveChangesAsync(cancellationToken);
 

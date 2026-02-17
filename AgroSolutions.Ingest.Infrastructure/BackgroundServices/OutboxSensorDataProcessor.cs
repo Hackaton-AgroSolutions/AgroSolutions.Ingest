@@ -5,6 +5,7 @@ using AgroSolutions.Ingest.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Context;
 using System.Text.Json;
 
 namespace AgroSolutions.Ingest.Infrastructure.BackgroundServices;
@@ -21,30 +22,37 @@ public class OutboxSensorDataProcessor(IServiceScopeFactory scopeFactory) : Back
             IUnitOfWork unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
             IEventPublisher eventPublisher = scope.ServiceProvider.GetRequiredService<IEventPublisher>();
 
-            List<OutboxSensorData> pendingOutboxSensorDatas = unitOfWork.OutboxReceivedSensorDatas.GetPendingOutboxSensorDataTracking();
+            List<OutboxSensorData> pendingOutboxSensorDatas = unitOfWork.OutboxSensorDatas.GetPendingOutboxSensorDataTracking();
+            Log.Information("Total pending of processing in database {Total}.", pendingOutboxSensorDatas.Count);
 
             foreach (OutboxSensorData outboxSensorData in pendingOutboxSensorDatas)
             {
-                try
+                using (LogContext.PushProperty("CorrelationId", outboxSensorData.Correlationid.ToString()))
                 {
-                    ReceivedSensorDataEvent? receivedSensorDataEvent = JsonSerializer.Deserialize<ReceivedSensorDataEvent>(outboxSensorData.Payload);
-                    if (receivedSensorDataEvent is null)
+                    Log.Information("Starting the processor data from sensor Id {SensorClientId}.", outboxSensorData.OutboxSensorDataId);
+
+                    try
                     {
-                        Log.Error("Invalid ReceivedSensorDataEvent payload: {Payload}", outboxSensorData.Payload);
-                        outboxSensorData.MarkAsFailed();
-                        await unitOfWork.SaveChangesAsync(cancellationToken);
-                        return;
+                        ReceivedSensorDataEvent? receivedSensorDataEvent = JsonSerializer.Deserialize<ReceivedSensorDataEvent>(outboxSensorData.Payload);
+                        if (receivedSensorDataEvent is null)
+                        {
+                            Log.Error("Invalid ReceivedSensorDataEvent payload: {Payload}.", outboxSensorData.Payload);
+                            outboxSensorData.MarkAsFailed();
+                            await unitOfWork.SaveChangesAsync(cancellationToken);
+                            return;
+                        }
+
+                        await eventPublisher.PublishAsync(receivedSensorDataEvent, cancellationToken, outboxSensorData.Correlationid.ToString());
+                        outboxSensorData.MarkAsProcessed();
                     }
-
-                    await eventPublisher.PublishAsync(receivedSensorDataEvent, cancellationToken, receivedSensorDataEvent.CorrelationId);
-                    outboxSensorData.MarkAsProcessed();
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex, "Error during publish message from databse to messagin system.");
-                    outboxSensorData.MarkAsFailed();
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "Error during publish message from databse to messagin system.");
+                        outboxSensorData.MarkAsFailed();
+                    }
                 }
 
+                Log.Information("Finished the processor data from sensor Id {SensorClientId}.", outboxSensorData.OutboxSensorDataId);
                 await unitOfWork.SaveChangesAsync(cancellationToken);
             }
 

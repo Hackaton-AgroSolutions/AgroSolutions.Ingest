@@ -3,4 +3,5 @@
   <Project Path="AgroSolutions.Ingest.Application/AgroSolutions.Ingest.Application.csproj" />
   <Project Path="AgroSolutions.Ingest.Domain/AgroSolutions.Ingest.Domain.csproj" />
   <Project Path="AgroSolutions.Ingest.Infrastructure/AgroSolutions.Ingest.Infrastructure.csproj" />
+  <Project Path="AgroSolutions.Ingest.Tests/AgroSolutions.Ingest.Tests.csproj" Id="1dfa2343-cf93-4992-b429-6e6983580e50" />
 </Solution>

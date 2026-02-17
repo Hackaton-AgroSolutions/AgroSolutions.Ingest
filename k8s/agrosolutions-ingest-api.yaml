@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agrosolutions-ingest-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agrosolutions-ingest-api
+  template:
+    metadata:
+      labels:
+        app: agrosolutions-ingest-api
+    spec:
+      containers:
+      - name: agrosolutions-ingest-api
+        image: marioguilhermedev/agrosolutions-ingest:latest
+        ports:
+        - containerPort: 8080
+
+        envFrom:
+        - configMapRef:
+            name: agrosolutions-ingest-config
+        - secretRef:
+            name: agrosolutions-ingest-secret
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"

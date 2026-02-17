@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agrosolutions-ingest-mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agrosolutions-ingest-mongodb
+  template:
+    metadata:
+      labels:
+        app: agrosolutions-ingest-mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:6.0
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: "admin"
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: "Users!Passw0rd"
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agrosolutions-ingest-mongodb
+spec:
+  selector:
+    app: agrosolutions-ingest-mongodb
+  ports:
+  - port: 27017
+    targetPort: 27017

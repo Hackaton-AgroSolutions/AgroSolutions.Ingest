@@ -1,9 +1,10 @@
 ﻿namespace AgroSolutions.Ingest.API.InputModels;
 
 public record SensorDataInputModel(
+    DateTime Timestamp,
     decimal PrecipitationMm,
     decimal WindSpeedKmh,
-    decimal SoilPH,
+    float SoilPH,
     decimal AirTemperatureC,
     float AirHumidityPercent,
     float SoilMoisturePercent,

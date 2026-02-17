@@ -27,7 +27,7 @@ public static class OutboxSensorDataFieldsValidationExtensions
     extension<T>(IRuleBuilder<T, decimal> rule)
     {
         public IRuleBuilderOptions<T, decimal> ValidSensorDataPrecipitationMm() => rule
-            .GreaterThan(0).WithMessage(MESSAGE_INVALID_SENSORDATAPRECIPITATIONMM);
+            .GreaterThanOrEqualTo(0).WithMessage(MESSAGE_INVALID_SENSORDATAPRECIPITATIONMM);
 
         public IRuleBuilderOptions<T, decimal> ValidSensorDataWindSpeedKmh() => rule
             .GreaterThan(0).WithMessage(MESSAGE_INVALID_SENSORDATAWINDSPEEDKMH);

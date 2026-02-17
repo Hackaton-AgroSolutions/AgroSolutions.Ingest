@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agrosolutions-ingest-influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agrosolutions-ingest-influxdb
+  template:
+    metadata:
+      labels:
+        app: agrosolutions-ingest-influxdb
+    spec:
+      containers:
+      - name: influxdb
+        image: influxdb:2.7
+        ports:
+        - containerPort: 8086
+        env:
+        - name: INFLUXDB_INIT_USERNAME
+          value: "agrosolutions-admin"
+        - name: INFLUXDB_INIT_PASSWORD
+          value: "OtIZjD(-0tE~y4sf&4@>"
+        - name: INFLUXDB_INIT_ORG
+          value: "agrosolutions-org"
+        - name: INFLUXDB_INIT_BUCKET
+          value: "agrosolutions-bucket"
+        - name: INFLUXDB_INIT_ADMIN_TOKEN
+          value: "Je2LUfYXX9o10pAcYgzsG8tWeRlR5qwKjpAqlV_sf-HyD09G2-eG90yyOXWa6tNVDtwKzq_zshT6XXd4FYBi3A=="
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agrosolutions-ingest-influxdb
+spec:
+  selector:
+    app: agrosolutions-ingest-influxdb
+  ports:
+  - port: 8086
+    targetPort: 8086

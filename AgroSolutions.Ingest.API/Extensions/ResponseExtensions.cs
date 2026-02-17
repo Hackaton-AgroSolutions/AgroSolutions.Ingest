@@ -6,10 +6,10 @@ public static class ResponseExtensions
 {
     extension(HttpResponse httpResponse)
     {
-        public string? CorrelationId()
+        public Guid CorrelationId()
         {
             httpResponse.Headers.TryGetValue("X-Correlation-ID", out StringValues correlationId);
-            return correlationId.FirstOrDefault();
+            return Guid.Parse(correlationId.First()!);
         }
     }
 }

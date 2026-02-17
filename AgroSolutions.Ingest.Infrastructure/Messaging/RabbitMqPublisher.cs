@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using RabbitMQ.Client;
+using Serilog;
 using System.Text;
 using System.Text.Json;
 
@@ -33,7 +34,7 @@ public class RabbitMqPublisher(IMessagingConnectionFactory factory, IOptions<Rab
             case ReceivedSensorDataEvent receivedSensorDataEvent:
                 body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(receivedSensorDataEvent));
                 routingKey = GetRoutingKeyByEventType(EventType.ReceivedSensorData);
-                //Log.Information("Adding the received data from sensor with } to the RoutingKey {RoutingKey}.", deletedUser.UserId, routingKey);
+                Log.Information("Adding the received data from sensor with data {@Data} to the RoutingKey {RoutingKey}.", receivedSensorDataEvent, routingKey);
                 break;
         }
 

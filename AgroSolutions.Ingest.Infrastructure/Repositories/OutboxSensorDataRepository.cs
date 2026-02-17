@@ -1,4 +1,5 @@
 ﻿using AgroSolutions.Ingest.Domain.Entitites;
+using AgroSolutions.Ingest.Domain.Enums;
 using AgroSolutions.Ingest.Domain.Repositories;
 using AgroSolutions.Ingest.Infrastructure.Persistence;
 using MongoDB.Driver.Linq;
@@ -9,9 +10,9 @@ public class OutboxSensorDataRepository(AgroSolutionsIngestDbContext dbContext) 
 {
     private readonly AgroSolutionsIngestDbContext _dbContext = dbContext;
 
-    public List<OutboxSensorData> GetPendingOutboxSensorDataTracking() => [.. _dbContext.OutboxSensorDatas.Where(o => o.Status == "Pending")];
+    public List<OutboxSensorData> GetPendingOutboxSensorDataTracking() => [.. _dbContext.OutboxSensorDatas.Where(o => o.Status == OutboxSensorDataStatus.Pending)];
 
-    public async Task SaveReceivedSensorDataAsync(OutboxSensorData outboxSensorData, CancellationToken cancellationToken)
+    public async Task SaveSensorDataAsync(OutboxSensorData outboxSensorData, CancellationToken cancellationToken)
     {
         await _dbContext.OutboxSensorDatas.AddAsync(outboxSensorData, cancellationToken);
     }

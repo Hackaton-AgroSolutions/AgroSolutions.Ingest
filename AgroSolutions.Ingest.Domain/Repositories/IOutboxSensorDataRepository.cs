@@ -5,5 +5,5 @@ namespace AgroSolutions.Ingest.Domain.Repositories;
 public interface IOutboxSensorDataRepository
 {
     List<OutboxSensorData> GetPendingOutboxSensorDataTracking();
-    Task SaveReceivedSensorDataAsync(OutboxSensorData outboxSensorData, CancellationToken cancellationToken);
+    Task SaveSensorDataAsync(OutboxSensorData outboxSensorData, CancellationToken cancellationToken);
 }
