@@ -1,7 +1,5 @@
 ﻿using AgroSolutions.Ingest.Application.Commands.SaveSensorData;
-using AgroSolutions.Ingest.Application.Notifications;
 using AgroSolutions.Ingest.Domain.Entitites;
-using AgroSolutions.Ingest.Domain.Notifications;
 using AgroSolutions.Ingest.Infrastructure.Persistence;
 using FluentAssertions;
 using MediatR;
