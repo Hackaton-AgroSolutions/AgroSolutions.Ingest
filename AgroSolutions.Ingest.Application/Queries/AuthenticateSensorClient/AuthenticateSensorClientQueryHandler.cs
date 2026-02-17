@@ -17,6 +17,7 @@ public class AuthenticateSensorClientQueryHandler(IUnitOfWork unitOfWork,
 
     public async Task<AuthenticateSensorClientQueryResult?> Handle(AuthenticateSensorClientQuery request, CancellationToken cancellationToken)
     {
+        Log.Information("Starting the authentication of sensor.");
 
         SensorClient? sensorClient = await _unitOfWork.SensorClients.GetByClientIdNoTrackingAsync(request.ClientId, cancellationToken);
         if (sensorClient is null || !BCrypt.Net.BCrypt.Verify(request.ClientSecret, sensorClient.ClientSecret))
@@ -29,6 +30,7 @@ public class AuthenticateSensorClientQueryHandler(IUnitOfWork unitOfWork,
         Log.Information("Generating a token for the sensor client with ID {SensorClientId}.", sensorClient.SensorClientId);
         string token = _sensorClientAuthService.GenerateToken(sensorClient);
 
+        Log.Information("Finished the authentication of sensor.");
         return new(token);
     }
 }

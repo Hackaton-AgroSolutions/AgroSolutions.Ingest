@@ -13,6 +13,8 @@ public class SaveSensorDataCommandHandler(IUnitOfWork unitOfWork) : IRequestHand
 
     public async Task<Unit?> Handle(SaveSensorDataCommand request, CancellationToken cancellationToken)
     {
+        Log.Information("Starting the save of data from sensor.");
+
         ReceivedSensorDataEvent receivedSensorDataEvent = new(
             request.SensorClientId,
             request.CorrelationId,
@@ -30,6 +32,7 @@ public class SaveSensorDataCommandHandler(IUnitOfWork unitOfWork) : IRequestHand
         await _unitOfWork.OutboxReceivedSensorDatas.SaveReceivedSensorDataAsync(outboxSensorData, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
+        Log.Information("Finished the save of data from sensor.");
         return Unit.Value;
     }
 }
