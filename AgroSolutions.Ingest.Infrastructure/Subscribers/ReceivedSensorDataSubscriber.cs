@@ -3,7 +3,6 @@ using AgroSolutions.Ingest.Domain.Messaging;
 using AgroSolutions.Ingest.Infrastructure.Extensions;
 using AgroSolutions.Ingest.Infrastructure.Messaging;
 using AgroSolutions.Ingest.Infrastructure.Services;
-using InfluxData.Net.InfluxDb.Models.Responses;
 using InfluxDB.Client.Api.Domain;
 using InfluxDB.Client.Writes;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +14,6 @@ using Serilog;
 using Serilog.Context;
 using System.Text;
 using System.Text.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AgroSolutions.Ingest.Infrastructure.Subscribers;
 

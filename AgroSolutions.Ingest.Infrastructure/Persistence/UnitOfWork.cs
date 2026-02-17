@@ -1,5 +1,4 @@
 ﻿using AgroSolutions.Ingest.Domain.Repositories;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace AgroSolutions.Ingest.Infrastructure.Persistence;
 

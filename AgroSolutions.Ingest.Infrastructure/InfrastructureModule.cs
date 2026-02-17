@@ -7,7 +7,6 @@ using AgroSolutions.Ingest.Infrastructure.Messaging;
 using AgroSolutions.Ingest.Infrastructure.Persistence;
 using AgroSolutions.Ingest.Infrastructure.Repositories;
 using AgroSolutions.Ingest.Infrastructure.Services;
-using AgroSolutions.Ingest.Infrastructure.Subscribers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;

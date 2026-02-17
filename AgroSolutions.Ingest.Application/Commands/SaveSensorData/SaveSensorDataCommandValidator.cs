@@ -1,5 +1,4 @@
-﻿using AgroSolutions.Ingest.Application.Commands.SaveSensorData;
-using AgroSolutions.Ingest.Application.Validators;
+﻿using AgroSolutions.Ingest.Application.Validators;
 using FluentValidation;
 using Serilog;
 

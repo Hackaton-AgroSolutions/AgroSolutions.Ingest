@@ -1,7 +1,6 @@
 ﻿using AgroSolutions.Ingest.Application;
 using AgroSolutions.Ingest.Application.Behaviors;
 using AgroSolutions.Ingest.Application.Commands.SaveSensorData;
-using AgroSolutions.Ingest.Application.Commands.SaveSensorData;
 using AgroSolutions.Ingest.Application.Notifications;
 using AgroSolutions.Ingest.Domain.Notifications;
 using AgroSolutions.Ingest.Infrastructure.Subscribers;
