@@ -1,4 +1,13 @@
 <Solution>
+  <Folder Name="/k8s/">
+    <File Path="k8s/agrosolutions-ingest-api.yaml" />
+    <File Path="k8s/agrosolutions-ingest-configmap.yaml" />
+    <File Path="k8s/agrosolutions-ingest-hpa.yaml" />
+    <File Path="k8s/agrosolutions-ingest-influxdb.yaml" />
+    <File Path="k8s/agrosolutions-ingest-mongodb.yaml" />
+    <File Path="k8s/agrosolutions-ingest-secret.yaml" />
+    <File Path="k8s/agrosolutions-ingest-service.yaml" />
+  </Folder>
   <Project Path="AgroSolutions.Ingest.API/AgroSolutions.Ingest.API.csproj" />
   <Project Path="AgroSolutions.Ingest.Application/AgroSolutions.Ingest.Application.csproj" />
   <Project Path="AgroSolutions.Ingest.Domain/AgroSolutions.Ingest.Domain.csproj" />
