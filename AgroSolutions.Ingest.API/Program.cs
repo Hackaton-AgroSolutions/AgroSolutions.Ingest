@@ -70,7 +70,6 @@ WebApplication app = builder.Build();
 using AsyncServiceScope asyncServiceScope = app.Services.CreateAsyncScope();
 IServiceProvider services = asyncServiceScope.ServiceProvider;
 
-#if DEBUG
 #region Performs the initial insertion of client sensors into the database in the development environment.
 try
 {
@@ -82,7 +81,6 @@ catch (Exception ex)
     Log.Fatal(ex, "Error during initial insertion into the development environment.");
 }
 #endregion
-#endif
 
 #region Ensures the creation of the exchange, queues, and message binds at startup.
 try
