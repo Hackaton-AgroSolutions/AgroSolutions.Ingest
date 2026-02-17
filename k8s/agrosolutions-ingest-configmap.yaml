@@ -13,7 +13,7 @@ data:
   Jwt__Issuer: AgroSolutions.Ingest
   Jwt__Audience: SensorsAgroSolutions
   MongoDb__Database: AgroSolutionsIngest
-  InfluxDB__Url: http://agrosolutions-property-influxdb:8086
+  InfluxDB__Url: http://agrosolutions-ingest-influxdb:8086
   InfluxDB__Username: agrosolutions-admin
   InfluxDB__Org: agrosolutions-org
   InfluxDB__Bucket: agrosolutions-bucket

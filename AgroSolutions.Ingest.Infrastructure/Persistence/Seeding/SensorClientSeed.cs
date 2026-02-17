@@ -7,7 +7,7 @@ public static class SensorClientSeed
 {
     public static async Task SeedDatabaseAsync(AgroSolutionsIngestDbContext context)
     {
-        if (!await context.SensorClients.AnyAsync())
+        if (!await context.SensorClients.AnyAsync(sc => sc.ClientId == "sensor-001" || sc.ClientId == "sensor-002"))
         {
             foreach (SensorClient sensorClient in new SensorClient[]
             {
