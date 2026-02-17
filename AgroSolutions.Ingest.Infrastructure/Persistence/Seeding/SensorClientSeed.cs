@@ -1,5 +1,6 @@
 ﻿using AgroSolutions.Ingest.Domain.Entitites;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace AgroSolutions.Ingest.Infrastructure.Persistence.Seeding;
 
@@ -17,6 +18,7 @@ public static class SensorClientSeed
             {
                 await context.SensorClients.AddAsync(sensorClient);
                 await context.SaveChangesAsync();
+                Log.Information("Inserted Sensor Client with ID {SensorClientId}", sensorClient.SensorClientId);
             }
         }
     }
