@@ -52,6 +52,7 @@ public class ReceivedSensorDataSubscriber(IServiceProvider serviceProvider, IOpt
                     PointData pointData = PointData
                         .Measurement("agro_sensors")
                         .Tag("sensor_client_id", receivedSensorDataEvent.SensorClientId.ToString())
+                        .Field("field_id", receivedSensorDataEvent.FieldId)
                         .Field("soil_moisture_percent", receivedSensorDataEvent.SoilMoisturePercent)
                         .Field("air_temperature_c", receivedSensorDataEvent.AirTemperatureC)
                         .Field("precipitation_mm", receivedSensorDataEvent.PrecipitationMm)

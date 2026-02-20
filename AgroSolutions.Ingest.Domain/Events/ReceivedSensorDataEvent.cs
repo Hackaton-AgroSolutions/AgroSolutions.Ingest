@@ -4,6 +4,7 @@ namespace AgroSolutions.Ingest.Domain.Events;
 
 public record ReceivedSensorDataEvent(
     Guid SensorClientId,
+    int FieldId,
     decimal PrecipitationMm,
     decimal WindSpeedKmh,
     float SoilPH,
