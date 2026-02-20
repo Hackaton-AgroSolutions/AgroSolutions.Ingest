@@ -13,6 +13,7 @@ public class SaveSensorDataCommandValidatorTests
         // Arrange
         SaveSensorDataCommand saveSensorDataCommand = new(
             SensorClientId: Guid.NewGuid(),
+            FieldId: 1,
             Timestamp: DateTime.UtcNow.AddSeconds(-5),
             CorrelationId: Guid.NewGuid(),
             PrecipitationMm: 0.0m,
@@ -37,6 +38,7 @@ public class SaveSensorDataCommandValidatorTests
         // Arrange
         SaveSensorDataCommand saveSensorDataCommand = new(
             SensorClientId: Guid.NewGuid(),
+            FieldId: 1,
             Timestamp: DateTime.UtcNow.AddMinutes(5),
             CorrelationId: Guid.NewGuid(),
             PrecipitationMm: -500.0m,
@@ -68,6 +70,7 @@ public class SaveSensorDataCommandValidatorTests
         // Arrange
         SaveSensorDataCommand saveSensorDataCommand = new(
             SensorClientId: Guid.NewGuid(),
+            FieldId: 1,
             Timestamp: DateTime.Now.AddSeconds(-5),
             CorrelationId: Guid.NewGuid(),
             PrecipitationMm: 0.0m,

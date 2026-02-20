@@ -23,6 +23,7 @@ public class SaveSensorDataCommandHandlerTests
         // Arrange
         SaveSensorDataCommand saveSensorDataCommand = new(
             SensorClientId: Guid.NewGuid(),
+            FieldId: 1,
             Timestamp: DateTime.Now.AddSeconds(-5),
             CorrelationId: Guid.NewGuid(),
             PrecipitationMm: 0.0m,
