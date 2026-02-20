@@ -49,10 +49,9 @@ public class ReceivedSensorDataSubscriber(IServiceProvider serviceProvider, IOpt
                     using IServiceScope scope = _serviceProvider.CreateScope();
                     IInfluxDbService influxDb = scope.ServiceProvider.GetRequiredService<IInfluxDbService>();
 
-                    influxDb.Write(w => w.WritePoint(PointData
+                    PointData pointData = PointData
                         .Measurement("agro_sensors")
                         .Tag("sensor_client_id", receivedSensorDataEvent.SensorClientId.ToString())
-                        .Field("timestamp", receivedSensorDataEvent.Timestamp)
                         .Field("soil_moisture_percent", receivedSensorDataEvent.SoilMoisturePercent)
                         .Field("air_temperature_c", receivedSensorDataEvent.AirTemperatureC)
                         .Field("precipitation_mm", receivedSensorDataEvent.PrecipitationMm)
@@ -60,8 +59,9 @@ public class ReceivedSensorDataSubscriber(IServiceProvider serviceProvider, IOpt
                         .Field("soil_ph", receivedSensorDataEvent.SoilPH)
                         .Field("wind_speed_kmh", receivedSensorDataEvent.WindSpeedKmh)
                         .Field("data_quality_score", receivedSensorDataEvent.DataQualityScore)
-                        .Timestamp(receivedSensorDataEvent.Timestamp, WritePrecision.Ns)));
+                        .Timestamp(receivedSensorDataEvent.Timestamp, WritePrecision.Ns);
 
+                    influxDb.Write(a => a.WritePoint(pointData));
                     await channel.BasicAckAsync(ea.DeliveryTag, false);
                 }
                 catch (Exception ex)

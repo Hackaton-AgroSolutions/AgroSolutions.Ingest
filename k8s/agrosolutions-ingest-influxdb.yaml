@@ -29,7 +29,7 @@ spec:
         - name: DOCKER_INFLUXDB_INIT_BUCKET
           value: agrosolutions-bucket
         - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
-          value: "o2pZP34OFdhpQe-xDMfxqNvSCKSEkR3-HKqwTv7cTE-9fWtIu4TiMGNkZAYJecu9tTo8KVJCyejdEgNLFqjHQQ=="
+          value: "Je2LUfYXX9o10pAcYgzsG8tWeRlR5qwKjpAqlV_sf-HyD09G2-eG90yyOXWa6tNVDtwKzq_zshT6XXd4FYBi3A=="
         resources:
           limits:
             memory: "1Gi"
