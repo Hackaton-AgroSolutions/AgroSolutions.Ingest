@@ -1,12 +1,8 @@
-﻿using InfluxDB.Client;
+﻿using AgroSolutions.Ingest.Functions.Interfaces;
+using InfluxDB.Client;
 using Microsoft.Extensions.Configuration;
 
-namespace AgroSolutions.Ingest.Infrastructure.Services;
-
-public interface IInfluxDbService
-{
-    void Write(Action<WriteApi> action);
-}
+namespace AgroSolutions.Ingest.Functions.Services;
 
 public class InfluxDbService(IConfiguration configuration) : IInfluxDbService
 {

@@ -8,11 +8,15 @@ using AgroSolutions.Ingest.Infrastructure.Persistence.Seeding;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi;
+using Prometheus;
 using Serilog;
+using Serilog.Sinks.Grafana.Loki;
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
+    .Enrich.WithProperty("service_name", "agro-solution-ingest-api")
     .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] (CorrelationId={CorrelationId}) {Message:lj} {NewLine}{Exception}")
+    .WriteTo.GrafanaLoki("http://loki:3100")
     .CreateLogger();
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -95,24 +99,25 @@ catch (Exception ex)
 }
 #endregion
 
-if (app.Environment.IsDevelopment())
+app.UseMetricServer();
+app.MapGet("/metrics", () => "test_metric 1");
+app.MapGet("/", context =>
 {
-    app.MapGet("/", context =>
-    {
-        context.Response.Redirect("/swagger/index.html");
-        return Task.CompletedTask;
-    });
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseHttpsRedirection();
-}
+    context.Response.Redirect("/swagger/index.html");
+    return Task.CompletedTask;
+});
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseHttpsRedirection();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
 
+app.UseSerilogRequestLogging();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapMetrics();
 
 app.MapHealthChecks("/health");
 

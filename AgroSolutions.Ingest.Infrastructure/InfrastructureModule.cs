@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
+using OpenTelemetry.Trace;
 using System.Text;
 
 namespace AgroSolutions.Ingest.Infrastructure;
@@ -29,7 +30,6 @@ public static class InfrastructureModule
                 .AddOutboxProcessor()
                 .AddAuthentication(configuration)
                 .AddPersistence(configuration)
-                .AddInfluxDb(configuration)
                 .AddRepositories()
                 .AddUnitOfWork();
 
@@ -87,12 +87,6 @@ public static class InfrastructureModule
                 string mongoConnectionString = configuration["MongoDb:ConnectionString"]!;
                 return new MongoClient(mongoConnectionString);
             });
-            //services.AddScoped(sp =>
-            //{
-            //    IMongoClient client = sp.GetRequiredService<IMongoClient>();
-            //    string mongoDatabaseName = configuration["MongoDb:Database"]!;
-            //    return client.GetDatabase(mongoDatabaseName);
-            //});
             services.AddDbContext<AgroSolutionsIngestDbContext>(options =>
             {
                 string mongoConnectionString = configuration["MongoDb:ConnectionString"]!;
@@ -111,16 +105,21 @@ public static class InfrastructureModule
             return services;
         }
 
-        private IServiceCollection AddInfluxDb(IConfiguration configuration)
+        private IServiceCollection AddUnitOfWork()
         {
-            services.AddSingleton<IInfluxDbService>(sp => new InfluxDbService(configuration));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
 
-        private IServiceCollection AddUnitOfWork()
+        private IServiceCollection AddoOpenTelemetry()
         {
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddOpenTelemetry()
+                .WithTracing(tracing =>
+                {
+                    tracing.AddAspNetCoreInstrumentation();
+                    tracing.AddOtlpExporter();
+                });
 
             return services;
         }

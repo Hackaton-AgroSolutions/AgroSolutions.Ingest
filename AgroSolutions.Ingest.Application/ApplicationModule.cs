@@ -3,7 +3,6 @@ using AgroSolutions.Ingest.Application.Behaviors;
 using AgroSolutions.Ingest.Application.Commands.SaveSensorData;
 using AgroSolutions.Ingest.Application.Notifications;
 using AgroSolutions.Ingest.Domain.Notifications;
-using AgroSolutions.Ingest.Infrastructure.Subscribers;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -18,17 +17,9 @@ public static class ApplicationModule
         public IServiceCollection AddApplication()
         {
             services
-                .AddSubscribers()
                 .AddMediatR()
                 .AddFluentValidation()
                 .AddNotification();
-
-            return services;
-        }
-
-        private IServiceCollection AddSubscribers()
-        {
-            services.AddHostedService<ReceivedSensorDataSubscriber>();
 
             return services;
         }

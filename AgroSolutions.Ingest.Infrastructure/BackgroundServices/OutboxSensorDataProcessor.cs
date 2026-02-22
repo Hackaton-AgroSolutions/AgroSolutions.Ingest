@@ -47,7 +47,7 @@ public class OutboxSensorDataProcessor(IServiceScopeFactory scopeFactory) : Back
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(ex, "Error during publish message from databse to messagin system.");
+                        Log.Error(ex, "Error during publish message from databse to messaging system.");
                         outboxSensorData.MarkAsFailed();
                     }
                 }
