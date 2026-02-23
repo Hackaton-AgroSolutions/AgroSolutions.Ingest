@@ -100,7 +100,6 @@ catch (Exception ex)
 #endregion
 
 app.UseMetricServer();
-app.MapGet("/metrics", () => "test_metric 1");
 app.MapGet("/", context =>
 {
     context.Response.Redirect("/swagger/index.html");

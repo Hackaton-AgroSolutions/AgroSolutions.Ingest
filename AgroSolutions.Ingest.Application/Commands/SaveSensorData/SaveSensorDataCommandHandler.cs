@@ -17,6 +17,7 @@ public class SaveSensorDataCommandHandler(IUnitOfWork unitOfWork) : IRequestHand
 
         ReceivedSensorDataEvent receivedSensorDataEvent = new(
             request.SensorClientId,
+            request.CorrelationId,
             request.FieldId,
             request.PrecipitationMm,
             request.WindSpeedKmh,
