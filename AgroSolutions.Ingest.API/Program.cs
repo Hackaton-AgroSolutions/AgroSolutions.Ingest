@@ -12,14 +12,22 @@ using Prometheus;
 using Serilog;
 using Serilog.Sinks.Grafana.Loki;
 
+const string APP_NAME = "agro-solution-ingest-api";
+
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
-    .Enrich.WithProperty("service_name", "agro-solution-ingest-api")
     .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] (CorrelationId={CorrelationId}) {Message:lj} {NewLine}{Exception}")
-    .WriteTo.GrafanaLoki("http://loki:3100")
+    .WriteTo.GrafanaLoki("http://loki:3100", [
+        new()
+        {
+            Key = "app",
+            Value = APP_NAME
+        }
+    ])
     .CreateLogger();
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
 
 builder.Services
     .AddInfrastructure(builder.Configuration)
@@ -28,8 +36,6 @@ builder.Services
 builder.Services
     .AddControllers(options => options.Filters.Add<RestResponseFilter>())
     .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
-
-builder.Host.UseSerilog();
 
 builder.Services.AddHealthChecks();
 builder.Services.AddEndpointsApiExplorer();
@@ -99,6 +105,7 @@ catch (Exception ex)
 }
 #endregion
 
+app.UseSerilogRequestLogging();
 app.UseMetricServer();
 app.MapGet("/", context =>
 {
@@ -112,7 +119,6 @@ app.UseHttpsRedirection();
 app.UseMiddleware<CorrelationIdMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
 
-app.UseSerilogRequestLogging();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
