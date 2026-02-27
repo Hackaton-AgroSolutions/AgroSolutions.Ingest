@@ -1,5 +1,5 @@
 # 📦 AgroSolutions.Ingest
-> O serviço AgroSolutions Hackathon Ingest mantém o contexto da ingestão de dados provenientes dos sensores..
+> O serviço AgroSolutions Hackathon Ingest mantém o contexto da ingestão de dados provenientes dos sensores.
 
 ## 🚜 Funcionalidades
   - Autenticação dos sensores IoT;
