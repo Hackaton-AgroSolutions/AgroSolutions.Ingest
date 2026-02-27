@@ -81,7 +81,7 @@ IMAGEM AQUI
     ```
     dotnet run --launch-profile https
     ```
-    - Acesse [https://localhost:7229/swagger/index.html](https://localhost:7229/swagger/index.html)
+    - Acesse [http://localhost:7229/swagger/index.html](http://localhost:7229/swagger/index.html)
 
   - Via Kubernertes local (minikube/kind):
     - Execute o comando para aplicar todos os arquivos yamls presentes no diretório:
@@ -92,7 +92,7 @@ IMAGEM AQUI
     ```
     kubectl port-forward svc/agrosolutions-ingest-api 8082:80
     ```
-    - Acesse [https://localhost:8082/swagger/index.html](https://localhost:8082/swagger/index.html)
+    - Acesse [http://localhost:8082/swagger/index.html](http://localhost:8082/swagger/index.html)
 
 ## 🚀 Requisições para Kong API Gateway
 ```javascript
