@@ -27,7 +27,7 @@ spec:
         - name: DOCKER_INFLUXDB_INIT_ORG
           value: "agrosolutions-org"
         - name: DOCKER_INFLUXDB_INIT_BUCKET
-          value: "agrosolutions-bucket"
+          value: "main-bucket"
         - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
           value: "Je2LUfYXX9o10pAcYgzsG8tWeRlR5qwKjpAqlV_sf-HyD09G2-eG90yyOXWa6tNVDtwKzq_zshT6XXd4FYBi3A=="
         resources:
