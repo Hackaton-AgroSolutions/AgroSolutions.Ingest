@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: agrosolutions-ingest-influxdb
+  name: influxdb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: agrosolutions-ingest-influxdb
+      app: influxdb
   template:
     metadata:
       labels:
-        app: agrosolutions-ingest-influxdb
+        app: influxdb
     spec:
       containers:
       - name: influxdb
@@ -19,15 +19,15 @@ spec:
         - containerPort: 8086
         env:
         - name: DOCKER_INFLUXDB_INIT_MODE
-          value: setup
+          value: "setup"
         - name: DOCKER_INFLUXDB_INIT_USERNAME
-          value: agrosolutions-admin
+          value: "agrosolutions-admin"
         - name: DOCKER_INFLUXDB_INIT_PASSWORD
           value: "agrosolutionsAdmin123$"
         - name: DOCKER_INFLUXDB_INIT_ORG
-          value: agrosolutions-org
+          value: "agrosolutions-org"
         - name: DOCKER_INFLUXDB_INIT_BUCKET
-          value: agrosolutions-bucket
+          value: "agrosolutions-bucket"
         - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
           value: "Je2LUfYXX9o10pAcYgzsG8tWeRlR5qwKjpAqlV_sf-HyD09G2-eG90yyOXWa6tNVDtwKzq_zshT6XXd4FYBi3A=="
         resources:
@@ -38,10 +38,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: agrosolutions-ingest-influxdb
+  name: influxdb
 spec:
   selector:
-    app: agrosolutions-ingest-influxdb
+    app: influxdb
   ports:
   - port: 8086
     targetPort: 8086
