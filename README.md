@@ -81,7 +81,7 @@ IMAGEM AQUI
     ```
     dotnet run --launch-profile https
     ```
-    - Acesse [http://localhost:7229/swagger/index.html](http://localhost:7229/swagger/index.html)
+    - Acesse [https://localhost:7229/swagger/index.html](https://localhost:7229/swagger/index.html)
 
   - Via Kubernertes local (minikube/kind):
     - Execute o comando para aplicar todos os arquivos yamls presentes no diretório:
