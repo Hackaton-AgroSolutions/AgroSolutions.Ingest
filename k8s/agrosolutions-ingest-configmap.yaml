@@ -10,9 +10,6 @@ data:
   Messaging__Destinations__0__Id: RECEIVED_SENSOR_DATA
   Messaging__Destinations__0__Queue: received-sensor-data-to-influxdb
   Messaging__Destinations__0__RoutingKey: received.sensor.data
-  Messaging__Destinations__1__Id: RECEIVED_SENSOR_DATA
-  Messaging__Destinations__1__Queue: received-sensor-data-to-alerts
-  Messaging__Destinations__1__RoutingKey: received.sensor.data
   Jwt__Issuer: AgroSolutions.Ingest
   Jwt__Audience: SensorsAgroSolutions
   MongoDb__Database: AgroSolutionsIngest
