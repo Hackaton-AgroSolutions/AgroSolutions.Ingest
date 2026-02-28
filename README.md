@@ -193,7 +193,7 @@ const datas = [
         PrecipitationMm: 0,
         WindSpeedKmh: 9,
         SoilPH: 6,
-        AirTemperatureC: 3966,
+        AirTemperatureC: 39,
         AirHumidityPercent: 50,
         SoilMoisturePercent: 40,
         DataQualityScore: 94
