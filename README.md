@@ -50,6 +50,18 @@
  - Grafana Loki para centralização de logs;
  - Estratégia de logging estruturado e distribuído.
 
+## Regras Novas para enriquecer o Domínio:
+- Regra 1 (Do documento do Hackaton) e 2
+<img width="837" height="688" alt="image" src="https://github.com/user-attachments/assets/cc8ace8b-837b-4b1d-ab25-0630c458b285" />
+<br><br>
+
+- Regra 3 e 4
+<img width="1372" height="761" alt="image" src="https://github.com/user-attachments/assets/ea26f774-f0f8-4557-b53d-33540be95589" />
+<br><br>
+
+- Regra 5 e 6
+<img width="1306" height="633" alt="image" src="https://github.com/user-attachments/assets/957d6779-306e-4a8c-9f85-a4b746f6b46c" />
+
 ### 🧪 Testes
  - Testes unitários com xUnit;
  - FluentAssertions para assertions mais expressivas;
