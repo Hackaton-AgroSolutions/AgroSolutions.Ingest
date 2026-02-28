@@ -6,7 +6,6 @@
     <File Path="k8s/agrosolutions-ingest-mongodb.yaml" />
     <File Path="k8s/agrosolutions-ingest-secret.yaml" />
     <File Path="k8s/agrosolutions-ingest-service.yaml" />
-    <File Path="k8s/influxdb.yaml" />
   </Folder>
   <Project Path="AgroSolutions.Ingest.API/AgroSolutions.Ingest.API.csproj" />
   <Project Path="AgroSolutions.Ingest.Application/AgroSolutions.Ingest.Application.csproj" />
